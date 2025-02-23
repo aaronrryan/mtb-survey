@@ -1,0 +1,14 @@
+# MySQL root password - change this to a secure password
+mysql_root_password = "change-me-to-secure-password"
+
+# Path to kubeconfig if different from default
+k8s_config_path = "~/.kube/config"
+
+# Number of frontend replicas
+app_replicas = 1
+
+# Docker image for API
+api_image = "aaronrryan/mtb-survey-api:latest"
+
+# Application version
+app_version = "1.0.0" 

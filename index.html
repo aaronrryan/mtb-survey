@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mountain Biking Experience Survey</title>
+    <style>
+        :root {
+            --forest-green: #2c5530;
+            --mountain-gray: #707070;
+            --sky-blue: #87CEEB;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(var(--sky-blue), #ffffff);
+            min-height: 100vh;
+        }
+
+        .mountain-bg {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 60vh;
+            background: 
+                linear-gradient(transparent 0%, var(--forest-green) 100%),
+                linear-gradient(45deg, var(--mountain-gray) 50%, transparent 50%) 0 0,
+                linear-gradient(-45deg, var(--mountain-gray) 50%, transparent 50%) 100% 0;
+            background-size: 100% 100%, 50% 100%, 50% 100%;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--forest-green);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--forest-green);
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--mountain-gray);
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: var(--forest-green);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button:hover {
+            background-color: #1a331d;
+        }
+
+        .secondary-button {
+            background-color: var(--mountain-gray);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 10px auto;
+        }
+
+        .secondary-button:hover {
+            background-color: #1a331d;
+        }
+
+        .result-card {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--mountain-gray);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .result-body p {
+            margin: 5px 0;
+        }
+
+        .nav-bar {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--forest-green);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover {
+            background-color: var(--forest-green);
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--mountain-gray);
+            font-size: 0.8em;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mountain-bg"></div>
+    <nav class="nav-bar">
+      <div class="nav-container">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/results" class="nav-link">Survey Results</a>
+      </div>
+    </nav>
+
+    <div class="container">
+        <h1>Mountain Biking Experience Survey</h1>
+        <form id="biking-survey">
+            <div class="question">
+                <label for="experience">How many years have you been mountain biking?</label>
+                <input type="text" id="experience" name="experience" required>
+            </div>
+
+            <div class="question">
+                <label for="skill-level">What's your skill level?</label>
+                <select id="skill-level" name="skill-level" required>
+                    <option value="">Select your level</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                    <option value="expert">Expert</option>
+                </select>
+            </div>
+
+            <div class="question">
+                <label for="favorite-trail">What's your favorite trail and why?</label>
+                <textarea id="favorite-trail" name="favorite-trail" rows="4" required></textarea>
+            </div>
+
+            <button type="submit">Submit Survey</button>
+        </form>
+    </div>
+
+    <div class="container" id="results" style="display: none;">
+        <h1>Survey Results</h1>
+        <div id="survey-results">
+            <!-- Results will be populated here -->
+        </div>
+        <button onclick="toggleView('form')" class="secondary-button">Back to Survey</button>
+    </div>
+
+    <div class="container">
+        <button onclick="toggleView('results')" class="secondary-button">View Results</button>
+    </div>
+
+    <footer class="footer">
+      <p>Version: ${APP_VERSION}</p>
+    </footer>
+
+    <script>
+    function toggleView(view) {
+        if (view === 'results') {
+            document.getElementById('biking-survey').parentElement.style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            loadResults();
+        } else {
+            document.getElementById('biking-survey').parentElement.style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+        }
+    }
+
+    async function loadResults() {
+        try {
+            const response = await fetch('/api/surveys');
+            const results = await response.json();
+            
+            const resultsHtml = results.map(result => `
+                <div class="result-card">
+                    <div class="result-header">
+                        <span class="timestamp">Submitted: ${new Date(result.submitted_at).toLocaleString()}</span>
+                        <span class="ip">IP: ${result.ip_address}</span>
+                    </div>
+                    <div class="result-body">
+                        <p><strong>Experience:</strong> ${result.experience_years} years</p>
+                        <p><strong>Skill Level:</strong> ${result.skill_level}</p>
+                        <p><strong>Favorite Trail:</strong> ${result.favorite_trail}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('survey-results').innerHTML = resultsHtml;
+        } catch (error) {
+            console.error('Error loading results:', error);
+            document.getElementById('survey-results').innerHTML = '<p>Error loading results</p>';
+        }
+    }
+
+    document.getElementById('biking-survey').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            experience: document.getElementById('experience').value,
+            skill_level: document.getElementById('skill-level').value,
+            favorite_trail: document.getElementById('favorite-trail').value
+        };
+
+        try {
+            const response = await fetch('/api/survey', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                alert('Survey submitted successfully!');
+                e.target.reset();
+            } else {
+                alert('Error submitting survey');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error submitting survey');
+        }
+    });
+    </script>
+</body>
+</html>
