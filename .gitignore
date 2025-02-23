@@ -41,6 +41,7 @@ wheels/
 *.swp
 *.swo
 *~
+.cursorrules
 
 # OS
 .DS_Store
